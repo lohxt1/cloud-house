@@ -3,10 +3,14 @@ import React, { Suspense, lazy } from "react";
 import { Canvas, useThree, useFrame } from "@react-three/fiber";
 import StatsUtils from "../three-components/stats";
 import Controls from "../three-components/controls";
+import {
+  EffectComposer,
+  DepthOfField,
+  Noise,
+  Bloom,
+} from "@react-three/postprocessing";
 
 import { Hut } from "../three-components/hut";
-
-const Bloom = lazy(() => import("../three-shaders/bloom"));
 
 const HutSpace = (props) => {
   return (
@@ -30,7 +34,21 @@ const HutSpace = (props) => {
           <Hut />
         </Suspense>
         <Suspense fallback={null}>
-          <Bloom intensity={0.5} />
+          <EffectComposer>
+            <DepthOfField
+              focusDistance={0}
+              focalLength={0.02}
+              bokehScale={0.5}
+              height={1000}
+            />
+            <Bloom
+              luminanceThreshold={0}
+              luminanceSmoothing={0.1}
+              height={700}
+              intensity={0.5}
+            />
+            {/* <Noise opacity={0.5} /> */}
+          </EffectComposer>
         </Suspense>
         <Suspense fallback={null}>
           {/* <StatsUtils /> */}
