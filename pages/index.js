@@ -6,7 +6,7 @@ const IndexPage = (props) => {
   return (
     <>
       <Layout>
-        {!isMobile ? <div className="nope">Nope [ 🖥 only ]</div> : <HutSpace />}
+        {isMobile ? <div className="nope">Nope [ 🖥 only ]</div> : <HutSpace />}
       </Layout>
       <style jsx>{`
         .nope {
